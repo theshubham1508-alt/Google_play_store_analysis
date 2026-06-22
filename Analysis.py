@@ -161,3 +161,25 @@ print(
       .sort_values(ascending=False)
       .head(10)
 )
+import pandas as pd
+import matplotlib.pyplot as plt
+
+df = pd.read_csv("google play store.csv")
+
+top_cat = (df["Category"]
+           .value_counts(normalize=True)
+           .head(10) * 100)
+
+plt.figure(figsize=(10,5))
+plt.plot(top_cat.index, top_cat.values, marker="o", linewidth=3)
+
+plt.title("Top 10 Categories (%)")
+plt.xlabel("Category")
+plt.ylabel("Percentage (%)")
+plt.xticks(rotation=45)
+
+for i, v in enumerate(top_cat.values):
+    plt.text(i, v+0.2, f"{v:.1f}%")
+
+plt.tight_layout()
+plt.show() 
